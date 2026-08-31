@@ -1,0 +1,170 @@
+*{box-sizing:border-box}
+body{margin:0;background:#05090c;color:#edf8fa;font:14px/1.5 Inter,Segoe UI,Arial,sans-serif}
+.top{height:72px;position:fixed;z-index:30;top:0;left:0;right:0;display:flex;align-items:center;padding:0 24px;background:#05090cf5;border-bottom:1px solid #16343b}
+.brand{display:flex;gap:10px;align-items:center;color:#fff;text-decoration:none;margin-right:auto}.brand img{width:42px;height:42px;object-fit:contain}.brand span{font-weight:900;letter-spacing:.12em}.brand small{display:block;color:#70858c;font-size:8px}.topStatus{display:flex;gap:18px;color:#16d7e5;font-size:11px;font-weight:800}.return{color:#a4b7bc;text-decoration:none;margin-left:25px;font-size:11px}
+.shell{display:grid;grid-template-columns:245px 1fr;padding-top:72px;min-height:100vh}
+aside{position:fixed;top:72px;bottom:0;width:245px;border-right:1px solid #16343b;background:#071014;padding:18px;overflow:auto}
+.navBtn{display:block;width:100%;text-align:left;background:transparent;border:1px solid transparent;color:#799097;padding:13px 12px;margin-bottom:5px;cursor:pointer;font-weight:800;font-size:11px}.navBtn.active,.navBtn:hover{border-color:#17434b;color:#16d7e5;background:#0a181c}
+.sideBlock{border-top:1px solid #17343a;margin-top:22px;padding-top:18px}.sideBlock>b{font-size:10px;letter-spacing:.14em;color:#6f858b;display:block;margin-bottom:12px}.sideBlock label{display:block;color:#8fa2a7;font-size:11px;margin:10px 0}.sideBlock input,.sideBlock select{width:100%;margin-top:6px;background:#08161a;border:1px solid #214048;color:#dff2f4;padding:9px}
+.smallBtn,.fileBtn,.startBtn,.exports button,.question button{display:block;width:100%;padding:11px;margin:8px 0;border:1px solid #23515a;background:#0a181c;color:#b7d1d5;cursor:pointer;font-weight:800;font-size:10px}.smallBtn:hover,.fileBtn:hover{border-color:#16d7e5;color:#16d7e5}.fileBtn input{display:none}.startBtn{margin-top:16px;background:#12cbd9;color:#001014;border-color:#12cbd9}.startBtn.active{box-shadow:0 0 25px #12cbd955}.startBtn:disabled,.exports button:disabled{opacity:.35;cursor:not-allowed}
+main{grid-column:2;padding:28px;min-width:0}.pageHead{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}.eyebrow{font-size:10px;letter-spacing:.17em;color:#16d7e5;font-weight:900}.pageHead h1{margin:5px 0;font-size:30px;letter-spacing:-.03em}.rowBox{min-width:220px;text-align:right;color:#71858b;font-size:10px}.rowBox b{color:#e6f4f6;font-size:16px}.bar{height:3px;background:#14333a;margin-top:8px}.bar i{display:block;height:100%;background:#16d7e5;width:0}
+.statusBar{display:flex;align-items:center;gap:20px;padding:15px 18px;border:1px solid #1d444b;margin-bottom:18px}.statusBar b{font-size:12px;letter-spacing:.12em}.statusBar span{color:#8fa4a9}.statusBar.safe b{color:#4fe39a}.statusBar.warning b{color:#e8bd55}.statusBar.danger b{color:#ff5261}
+.dashboardGrid{display:grid;grid-template-columns:minmax(520px,1.15fr) minmax(400px,.85fr);gap:18px}.twinPanel,.analysisPanel,.chartCard,.aiCard,.reportGate,.reportNotes,.aiLarge{border:1px solid #183b42;background:#071116}.panelTitle{padding:13px 16px;border-bottom:1px solid #16353c;color:#91a8ad;font-size:10px;font-weight:900;letter-spacing:.13em}.panelTitle span{float:right;color:#16d7e5}
+
+/* CLEAN DIGITAL TWIN: NO VEHICLE IMAGE */
+.loadMap{height:540px;position:relative;overflow:hidden;background:radial-gradient(circle at center,#0b2227,#05090c 72%)}
+.loadMap:before,.loadMap:after{content:"";position:absolute;background:#16d7e514}.loadMap:before{height:1px;left:8%;right:8%;top:50%}.loadMap:after{width:1px;top:8%;bottom:8%;left:50%}
+.vehicleFrame{position:absolute;left:21%;right:21%;top:15%;bottom:15%;border:1px solid #31575e;border-radius:90px;background:linear-gradient(90deg,#08171b,#0b2025 50%,#08171b);box-shadow:inset 0 0 35px #16d7e510,0 0 30px #16d7e508}.vehicleFrame:before,.vehicleFrame:after{content:"";position:absolute;left:12%;right:12%;height:1px;background:#31575e}.vehicleFrame:before{top:30%}.vehicleFrame:after{bottom:30%}
+.frontAxle,.rearAxle{position:absolute;left:9%;right:9%;height:2px;background:#16d7e555}.frontAxle{top:30%}.rearAxle{bottom:30%}.centerLine{position:absolute;top:8%;bottom:8%;left:50%;width:1px;background:#16d7e544}
+.wheelBox{position:absolute;width:145px;min-height:112px;padding:13px 14px;border:1px solid #31565d;background:#071318ee;z-index:5;transition:.25s}.wheelBox .position{display:block;color:#8fa6ab;font-size:11px;font-weight:900;letter-spacing:.12em}.wheelBox .rawValue{display:block;margin-top:5px;font-size:19px;color:#eaf7f9}.wheelBox small{display:block;color:#657b81;font-size:8px;letter-spacing:.12em}.wheelBox .eqValue{display:block;margin-top:6px;color:#16d7e5;font-size:13px}.wheelBox.good{border-color:#3fe09555;box-shadow:0 0 16px #3fe09516}.wheelBox.good .eqValue{color:#5ce7a3}.wheelBox.equalizing{animation:none}.valueGrid div.eq-good strong,.eqGrid div.eq-good strong{color:#5ce7a3}.valueGrid div.eq-bad strong,.eqGrid div.eq-bad strong{color:#ff5261}.eq-good{border-color:#3fe09544!important}.eq-bad{border-color:#ff465744!important}.wheelBox.abnormal{border-color:#ff4657;box-shadow:0 0 20px #ff465722}.wheelBox.abnormal .rawValue,.wheelBox.abnormal .eqValue{color:#ff5261}.wheelBox.fl{left:7%;top:19%}.wheelBox.fr{right:7%;top:19%}.wheelBox.rl{left:7%;bottom:19%}.wheelBox.rr{right:7%;bottom:19%}
+.cgMarker{position:absolute;left:50%;top:50%;width:54px;height:54px;transform:translate(-50%,-50%);border:2px solid #16d7e5;border-radius:50%;display:grid;place-items:center;color:#16d7e5;font-size:11px;font-weight:900;z-index:8;box-shadow:0 0 22px #16d7e522;transition:1s}.cgMarker:before{content:"";position:absolute;width:8px;height:8px;border-radius:50%;background:#16d7e5;box-shadow:0 0 14px #16d7e5}.cgMarker span{position:relative;z-index:2;margin-top:-46px;background:#071116;padding:2px 5px;font-size:8px}.cgReadout{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);text-align:center;z-index:9;display:grid;gap:2px}.cgReadout b{font-size:9px;letter-spacing:.12em;color:#8ea7ac}.cgReadout span{font:11px Consolas,monospace;color:#16d7e5}.cgReadout small{font-size:9px;color:#a8bcc0}
+
+.valueGrid{display:grid;grid-template-columns:1fr 1fr}.valueGrid div,.eqGrid div{padding:13px 14px;border-right:1px solid #15343b;border-bottom:1px solid #15343b;color:#72888e;font-size:10px}.valueGrid strong{display:block;color:#eaf7f9;font-size:18px;margin-top:3px}.eqGrid{display:grid;grid-template-columns:1fr 1fr}.eqGrid strong{display:block;color:#16d7e5;font-size:17px;margin-top:3px}.equalTitle{margin-top:0}
+.stages{display:flex;flex-wrap:wrap;gap:6px;padding:12px}.stages span{padding:5px 7px;border:1px solid #1b3b42;color:#52686e;font-size:8px}.stages span.done{color:#16d7e5;border-color:#16d7e566}.console{height:165px;overflow:auto;background:#030709;padding:12px;font:11px/1.7 Consolas,monospace;color:#78a2a9}.console p{margin:0}
+.bottomGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.aiCard{min-height:170px}.aiCard p{padding:18px;color:#a4b6bb;line-height:1.7}.tab{display:none}.tab.active{display:block}
+.chartGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.chartCard{padding-bottom:15px}.chartCard h3{padding:0 18px;font-size:13px}.chartCard canvas{width:100%;height:260px}.chartCard.wide{grid-column:1/-1}.chartCard #g3d{height:350px;position:relative;background:linear-gradient(145deg,#08181c,#03080a);overflow:hidden}.graphEmpty{height:100%;display:grid;place-items:center;color:#5d747a;font-size:12px}.bar3d{position:absolute;width:7px;background:#16d7e5aa;transform:skewY(-25deg);transform-origin:bottom;bottom:35px}
+.aiLarge{padding:45px;min-height:420px}.aiLarge h2,.reportGate h2{font-size:42px;line-height:1.1}.question{display:flex;gap:10px;margin:30px 0}.question input{flex:1;background:#050b0e;border:1px solid #21434a;color:#fff;padding:15px}.question button{width:auto;margin:0;background:#12cbd9;color:#001014}.aiLarge #answer{border-left:2px solid #16d7e5;padding:20px;color:#a9bbc0;max-width:850px}
+.reportGate,.reportNotes{padding:35px;margin-bottom:18px}.exports{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.exports button{margin:0;border-color:#16d7e5}.reportNotes p{color:#8fa4aa}.reportCounter{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#183b42;margin:22px 0}.reportCounter span,.reportCounter strong{background:#071116;padding:12px 14px}.reportCounter span{color:#70868c;font-size:9px;letter-spacing:.12em}.reportCounter strong{color:#edf8fa;font-size:22px}
+.analyticsNote{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid #183b42;background:#071116;padding:14px 16px;margin-bottom:18px;color:#9fb3b8}.analyticsNote b{color:#16d7e5;font-size:10px;letter-spacing:.14em}.analyticsNote span{font-weight:900;color:#edf8fa}.analyticsNote small{color:#6f858b}
+.toast{position:fixed;right:22px;bottom:22px;z-index:100;background:#0b1a1e;border:1px solid #16d7e5;padding:14px 18px;color:#dff8fa;transform:translateY(130px);transition:.3s;max-width:430px;white-space:pre-line}.toast.show{transform:none}.toast.error{border-color:#ff4657;color:#ffb8be}#errorBanner{display:none;background:#2a0d12;border:1px solid #ff4657;color:#ffb8be;padding:14px 16px;white-space:pre-line;margin-bottom:14px}#errorBanner.show{display:block}
+#boot{position:fixed;z-index:200;inset:0;background:#05090c;display:grid;place-items:center;align-content:center;gap:15px;transition:1s}.bootLogo{text-align:center;color:#e9f8fa;letter-spacing:.16em}.bootLogo img{width:90px;height:90px;object-fit:contain;display:block;margin:auto}.bootLine{width:320px;height:2px;background:#18383e}.bootLine i{display:block;width:0;height:100%;background:#16d7e5;animation:load 1s forwards}.bootLogo b{font-size:18px}.bootLine+p{font-size:10px;letter-spacing:.15em;color:#6d8389}.boot.done{opacity:0;visibility:hidden}.bootFallback{font-size:9px;letter-spacing:.2em;color:#4e7179}
+body.prestart main{filter:none}body.prestart .startBtn{background:#16d7e5;color:#001014;box-shadow:0 0 26px #16d7e52b}body.alert-active .statusBar{animation:none}
+@keyframes load{to{width:100%}}
+@media(max-width:1050px){aside{width:200px}.shell{grid-template-columns:200px 1fr}.dashboardGrid{grid-template-columns:1fr}.bottomGrid{grid-template-columns:1fr}.loadMap{height:500px}}
+@media(max-width:700px){aside{position:static;width:auto;border-right:0;border-bottom:1px solid #16343b}.shell{display:block}.topStatus{display:none}main{padding:15px}.chartGrid{grid-template-columns:1fr}.exports{grid-template-columns:1fr 1fr}.question{flex-direction:column}.question button{width:100%}.loadMap{height:430px}.wheelBox{width:120px;min-height:95px;padding:10px}.wheelBox .rawValue{font-size:15px}.wheelBox .eqValue{font-size:11px}.wheelBox.fl{left:2%;top:14%}.wheelBox.fr{right:2%;top:14%}.wheelBox.rl{left:2%;bottom:14%}.wheelBox.rr{right:2%;bottom:14%}.vehicleFrame{left:24%;right:24%}.reportCounter{grid-template-columns:1fr}.analyticsNote{display:block}.analyticsNote>*{display:block;margin:4px 0}}
+
+/* -------------------------------------------------------------------------
+   NEXT-LEVEL DIGITAL TWIN VISUAL LAYER
+   This is presentation-only. Engineering data remains controlled by JS/Python.
+   ------------------------------------------------------------------------- */
+.twinStage{background:#020608;isolation:isolate}
+.twinStage:before{content:"";position:absolute;inset:-25%;z-index:-2;background:radial-gradient(circle at 50% 45%,rgba(0,229,255,.11),transparent 30%),radial-gradient(circle at 18% 25%,rgba(0,155,255,.08),transparent 28%),radial-gradient(circle at 82% 75%,rgba(0,255,145,.05),transparent 25%);filter:blur(28px);animation:none}
+.twinStage:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(transparent 49%,rgba(0,229,255,.035) 50%,transparent 51%);background-size:100% 7px;pointer-events:none;opacity:.4}
+.twinCanvas{position:absolute;inset:0;z-index:1;cursor:grab}.twinCanvas:active{cursor:grabbing}.twinCanvas canvas{display:block;width:100%;height:100%}
+.twinHud{position:absolute;left:18px;top:16px;right:18px;z-index:12;display:flex;justify-content:space-between;gap:10px;pointer-events:none}.twinChip{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border:1px solid rgba(0,229,255,.28);background:rgba(3,12,15,.78);backdrop-filter:blur(8px);font:900 8px/1 Segoe UI,sans-serif;letter-spacing:.12em;color:#aeeef4}.twinChip i{width:6px;height:6px;border-radius:50%;background:#35f28a;box-shadow:0 0 10px #35f28a}.twinChip.muted{color:#6d8a91;border-color:#16383f}.twinScanline{position:absolute;left:12%;right:12%;top:15%;height:1px;z-index:4;background:linear-gradient(90deg,transparent,#00e5ff,transparent);opacity:.2;animation:none;pointer-events:none}
+.twinStage .wheelBox{z-index:15;backdrop-filter:blur(7px);background:rgba(4,13,17,.86)}
+.twinStage .wheelBox .rawValue{font-family:Inter,Segoe UI,sans-serif;font-size:21px}.twinStage .wheelBox .eqValue{font-family:Consolas,monospace}
+.twinStage .wheelBox.fl{border-color:rgba(0,229,255,.42)}.twinStage .wheelBox.fr{border-color:rgba(57,255,136,.42)}.twinStage .wheelBox.rl{border-color:rgba(255,200,87,.42)}.twinStage .wheelBox.rr{border-color:rgba(255,64,85,.42)}
+.twinStage .wheelBox.good{border-color:#35f28a;box-shadow:0 0 24px rgba(53,242,138,.18)}
+.twinStage .wheelBox.abnormal{border-color:#ff4055;box-shadow:0 0 30px rgba(255,64,85,.22)}
+.twinStage .wheelBox.abnormal .rawValue{color:#ff6475}.twinStage .wheelBox.good .eqValue{color:#35f28a}
+.twinViews{position:absolute;right:18px;bottom:58px;z-index:20;display:flex;gap:5px;padding:5px;border:1px solid #173c44;background:rgba(3,10,13,.8);backdrop-filter:blur(8px)}
+.twinView{border:1px solid transparent;background:transparent;color:#708d94;padding:7px 9px;font:900 8px Segoe UI;letter-spacing:.1em;cursor:pointer}.twinView:hover,.twinView.active{border-color:#00e5ff55;background:#082127;color:#00e5ff}
+.twinLegend{position:absolute;left:18px;bottom:18px;z-index:20;display:flex;gap:13px;flex-wrap:wrap;color:#69858c;font:800 7px Segoe UI;letter-spacing:.1em}.twinLegend span{display:inline-flex;align-items:center;gap:5px}.twinLegend i{width:7px;height:7px;border-radius:50%;display:inline-block}.legend-cyan{background:#00e5ff;box-shadow:0 0 8px #00e5ff}.legend-green{background:#35f28a;box-shadow:0 0 8px #35f28a}.legend-red{background:#ff4055;box-shadow:0 0 8px #ff4055}
+
+
+/* More readable engineering charts without changing the underlying data. */
+.chartCard{background:linear-gradient(180deg,#071116,#050b0e);box-shadow:inset 0 1px 0 rgba(0,229,255,.035)}
+.chartCard h3{color:#d9f2f5;letter-spacing:.02em}.analyticsNote{box-shadow:inset 0 0 35px rgba(0,229,255,.025)}
+@media(max-width:700px){.twinHud{left:10px;right:10px}.twinStage .wheelBox{width:118px}.twinViews{right:10px;bottom:48px}.twinLegend{left:10px;bottom:10px}}
+.twinFallback{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle,#0b2227,#030709 72%);color:#54747b;font:800 8px Segoe UI;letter-spacing:.12em}.fallbackVehicle{position:relative;width:48%;height:48%;border:1px dashed #17606a;border-radius:70px;box-shadow:inset 0 0 50px rgba(0,229,255,.04)}.fallbackWheel{position:absolute;width:54px;height:34px;border:1px solid #00e5ff;background:#061217;display:grid;place-items:center;color:#00e5ff;font-style:normal;font-size:8px}.fallbackWheel.fl{left:-28px;top:18%}.fallbackWheel.fr{right:-28px;top:18%}.fallbackWheel.rl{left:-28px;bottom:18%}.fallbackWheel.rr{right:-28px;bottom:18%}.fallbackCg{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:48px;height:48px;border:1px solid #fff;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:8px}
+
+/* Mandatory engineering state colors — red = requires review, green = within configured screening range. */
+.wheelState{display:block;margin-top:7px;font:900 9px/1.2 Segoe UI,sans-serif;letter-spacing:.08em;font-style:normal}
+.wheelState.green,.greenText{color:#35f28a!important;text-shadow:0 0 10px rgba(53,242,138,.35)}
+.wheelState.red,.redText{color:#ff4055!important;text-shadow:0 0 10px rgba(255,64,85,.35)}
+.neutralText{color:#c7d3d6!important}
+.wheelBox.state-green{border-color:#35f28a!important;box-shadow:0 0 26px rgba(53,242,138,.18)!important}
+.wheelBox.state-red{border-color:#ff4055!important;box-shadow:0 0 28px rgba(255,64,85,.22)!important}
+.wheelBox.state-green .rawValue,.wheelBox.state-green .eqValue{color:#35f28a!important}
+.wheelBox.state-red .rawValue,.wheelBox.state-red .eqValue{color:#ff4055!important}
+.insuranceCard{border:1px solid #183b42;background:#071116;margin-top:18px;padding-bottom:18px}
+.insuranceGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#183b42}
+.insuranceGrid>div{background:#071116;padding:18px}
+.insuranceGrid span,.insuranceGrid small{display:block;color:#6f858b;font-size:9px;letter-spacing:.1em}
+.insuranceGrid strong{display:block;margin:8px 0 4px;color:#eaf7f9;font-size:17px}
+.insuranceCard>p{padding:0 18px;color:#91a7ad;line-height:1.7}
+@media(max-width:900px){.insuranceGrid{grid-template-columns:1fr 1fr}}
+@media(max-width:700px){.insuranceGrid{grid-template-columns:1fr}}
+
+
+/* HYDROLEVEL COLOR SYSTEM — EDITABLE
+   Red = engineering alert, Green = equalized/OK, Amber = warning.
+   The pulse is intentionally short and readable instead of flashing the whole page. */
+.statusBar{position:relative;overflow:hidden;background:linear-gradient(90deg,#081419,#071014);}
+.statusBar:before{content:"";width:9px;height:9px;border-radius:50%;display:inline-block;background:#38f29a;box-shadow:0 0 12px #38f29a;animation:statusGreen 1.2s ease-in-out infinite;margin-right:2px;}
+.statusBar.warning:before{background:#ffc857;box-shadow:0 0 12px #ffc857;animation:statusAmber 1.2s ease-in-out infinite;}
+.statusBar.danger:before{background:#ff4055;box-shadow:0 0 14px #ff4055;animation:statusRed .75s ease-in-out infinite;}
+.statusBar.safe{border-color:#2ee58a66;background:linear-gradient(90deg,#092017,#071014);}
+.statusBar.warning{border-color:#ffc85788;background:linear-gradient(90deg,#211a08,#071014);}
+.statusBar.danger{border-color:#ff405588;background:linear-gradient(90deg,#260b11,#071014);}
+.statusBar.safe b{color:#38f29a}.statusBar.warning b{color:#ffc857}.statusBar.danger b{color:#ff4055}
+.wheelBox.good{border-color:#35f28a;box-shadow:0 0 18px #35f28a33;animation:greenCard 1.4s ease-in-out infinite;}
+.wheelBox.abnormal{border-color:#ff4055;box-shadow:0 0 22px #ff405544;animation:redCard .75s ease-in-out infinite;}
+.wheelBox .wheelState{display:block;margin-top:7px;font-size:8px;font-style:normal;font-weight:900;letter-spacing:.08em;}
+.wheelBox .wheelState.green{color:#35f28a}.wheelBox .wheelState.red{color:#ff4055}
+.valueGrid div.eq-good strong,.eqGrid div.eq-good strong{color:#35f28a;text-shadow:0 0 8px #35f28a33}
+.valueGrid div.eq-bad strong,.eqGrid div.eq-bad strong{color:#ff4055;text-shadow:0 0 8px #ff405533}
+.insuranceCard{border:1px solid #183b42;background:#071116;margin-bottom:18px}.insuranceGrid{display:grid;grid-template-columns:repeat(4,1fr)}
+.insuranceGrid>div{padding:18px;border-right:1px solid #183b42;border-bottom:1px solid #183b42}.insuranceGrid span{display:block;color:#71888e;font-size:9px;letter-spacing:.12em}.insuranceGrid strong{display:block;margin-top:5px;color:#edf8fa;font-size:17px}.insuranceGrid small{color:#6d8389}.insuranceCard p{padding:0 18px 18px;color:#8fa4aa}
+.reportGate.ready{border-color:#35f28a77;box-shadow:0 0 30px #35f28a12}.reportGate.ready h2{color:#35f28a}.reportGate.blocked{border-color:#ff405577}.reportGate.blocked h2{color:#ff4055}
+@keyframes statusGreen{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.2)}}
+@keyframes statusAmber{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes statusRed{0%,100%{opacity:.35;transform:scale(.85)}50%{opacity:1;transform:scale(1.25)}}
+@keyframes greenCard{0%,100%{box-shadow:0 0 12px #35f28a18}50%{box-shadow:0 0 24px #35f28a3d}}
+@keyframes redCard{0%,100%{box-shadow:0 0 12px #ff40551c}50%{box-shadow:0 0 28px #ff405555}}
+@media(max-width:1000px){.dashboardGrid{grid-template-columns:1fr}.insuranceGrid{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){.statusBar:before,.wheelBox.good,.wheelBox.abnormal{animation:none}}
+
+
+/* FINAL STATUS PRESENTATION — editable, no whole-page flashing. */
+.wheelBox{transition:border-color .25s ease,box-shadow .25s ease,background .25s ease,transform .25s ease;}
+.wheelBox.state-green{background:linear-gradient(180deg,rgba(12,54,36,.92),rgba(5,20,15,.96))!important;border:2px solid #39ff88!important;box-shadow:0 0 18px rgba(57,255,136,.25)!important;animation:hlGreenPulse 1.15s ease-in-out infinite;}
+.wheelBox.state-red{background:linear-gradient(180deg,rgba(70,12,22,.94),rgba(25,5,10,.97))!important;border:2px solid #ff4055!important;box-shadow:0 0 22px rgba(255,64,85,.30)!important;animation:hlRedPulse .72s ease-in-out infinite;}
+.wheelBox.state-green .position,.wheelBox.state-green .rawValue,.wheelBox.state-green .eqValue{color:#39ff88!important;}
+.wheelBox.state-red .position,.wheelBox.state-red .rawValue,.wheelBox.state-red .eqValue{color:#ff6677!important;}
+.wheelBox.state-green .wheelState{color:#39ff88!important;}
+.wheelBox.state-red .wheelState{color:#ff6677!important;}
+.statusBar.safe{color:#dfffee!important;border-color:#39ff8866!important;}
+.statusBar.warning{color:#fff2cc!important;border-color:#ffc85788!important;}
+.statusBar.danger{color:#ffe0e4!important;border-color:#ff405588!important;}
+@keyframes hlGreenPulse{0%,100%{box-shadow:0 0 12px rgba(57,255,136,.18)}50%{box-shadow:0 0 28px rgba(57,255,136,.48)}}
+@keyframes hlRedPulse{0%,100%{box-shadow:0 0 12px rgba(255,64,85,.18)}50%{box-shadow:0 0 32px rgba(255,64,85,.60)}}
+/* Do not flash the whole page. */
+body.alert-active{animation:none!important;}
+.reportGate{transition:border-color .25s ease,box-shadow .25s ease;}
+.reportGate.ready{border-color:#39ff88!important;box-shadow:0 0 28px rgba(57,255,136,.12)!important;}
+.reportGate.blocked{border-color:#ff4055!important;box-shadow:0 0 24px rgba(255,64,85,.10)!important;}
+
+/* V5 login + editable vehicle metadata + always-visible equalized twin values */
+.logoutBtn{background:transparent;border:0;cursor:pointer;font:inherit}.vehicleDetailsBlock{max-height:46vh;overflow:auto}.vehicleDetailsBlock label{display:block;margin:10px 0;color:#72888e;font-size:9px;letter-spacing:.08em}.vehicleDetailsBlock input{width:100%;margin-top:5px;padding:9px;background:#061117;border:1px solid #163d45;color:#eaf7f9}.vehicleDetailsBlock input:focus{border-color:#16d7e5;outline:none}.vehicleDetailsBlock #vehicleStatus{display:block;margin-top:8px;color:#6f858a;font-size:8px;line-height:1.4}.twinEqStrip{position:absolute;left:50%;bottom:58px;transform:translateX(-50%);z-index:18;display:flex;gap:12px;align-items:center;padding:8px 12px;border:1px solid #24626a;background:rgba(3,12,15,.92);backdrop-filter:blur(8px);box-shadow:0 0 20px #00e5ff14;font:10px Consolas,monospace;white-space:nowrap}.twinEqStrip>span{color:#16d7e5;font-weight:900;letter-spacing:.08em}.twinEqStrip b{color:#8fa5aa}.twinEqStrip i{font-style:normal;color:#39ff88;margin-left:3px}.twinEqStrip i.alert{color:#ff4055}@media(max-width:700px){.twinEqStrip{left:8px;right:8px;transform:none;justify-content:space-between;gap:5px;font-size:8px;bottom:55px}.vehicleDetailsBlock{max-height:none}}
+
+/* VEHICLE PROFILE — kept outside the monitoring sidebar so the test metadata is easy to review. */
+.vehicleProfileTab{max-width:1100px}
+.profileHeader{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;border:1px solid #17434b;background:linear-gradient(135deg,#071419,#050a0d);padding:24px;margin-bottom:18px}
+.profileHeader h2{margin:6px 0 8px;font-size:30px;letter-spacing:.03em}
+.profileHeader p{margin:0;max-width:760px;color:#8fa6ac;line-height:1.7}
+.profileBadge{padding:9px 13px;border:1px solid #ff4055;color:#ff6677;font:900 10px Segoe UI;letter-spacing:.1em;white-space:nowrap}
+.profileBadge.complete{border-color:#39ff88;color:#39ff88}
+.profileBadge.incomplete{border-color:#ff4055;color:#ff6677}
+.vehicleFormGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;background:#071116;border:1px solid #183b42;padding:22px}
+.vehicleFormGrid label{display:block;color:#7f979e;font:800 10px Segoe UI;letter-spacing:.08em}
+.vehicleFormGrid input{display:block;width:100%;margin-top:7px;padding:12px;background:#061117;border:1px solid #1b4650;color:#edf8fa;font:14px Segoe UI;outline:none}
+.vehicleFormGrid input:focus{border-color:#16d7e5;box-shadow:0 0 0 2px #16d7e51a}
+.profileActions{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:14px}
+.profileSave{width:auto;min-width:220px;margin:0;background:#0a2025;color:#16d7e5;border-color:#16d7e5}
+.profileContinue{width:auto;min-width:220px;margin:0}
+.profileActions #vehicleStatus{color:#71888e;font-size:10px;letter-spacing:.06em}
+.vehicleMissing{margin-top:14px;padding:13px 16px;border:1px solid #ff405555;background:#260b11;color:#ffb4bd;font-size:12px}
+.vehicleMissing.complete{border-color:#39ff8855;background:#092017;color:#9dffc4}
+.vehicleNav:after{content:' REQUIRED';float:right;color:#ff6677;font-size:8px}
+.vehicleNav.complete:after{content:' READY';color:#39ff88}
+@media(max-width:800px){.vehicleFormGrid{grid-template-columns:1fr}.profileHeader{flex-direction:column}.profileActions{align-items:flex-start}}
+
+.userGreeting{font-weight:800;color:#35f28a;letter-spacing:.08em}
+
+
+.healthPanel{border:1px solid #183b42;background:#071116;margin-top:18px}
+.healthGrid{display:grid;grid-template-columns:1.1fr 1fr 1.5fr 1.4fr;gap:1px;background:#183b42}
+.healthGrid>div{background:#071116;padding:18px;min-height:132px}
+.healthScore span,.healthFacts span,.healthSignals>span,.healthRecommendation>span{display:block;color:#6f858b;font-size:9px;letter-spacing:.13em;font-weight:900}
+.healthScore strong{font-size:46px;line-height:1;color:#16d7e5;display:inline-block;margin-top:10px}.healthScore small{color:#70858b;font-size:12px}
+.healthScore b{display:block;margin-top:8px;font-size:11px;letter-spacing:.14em;color:#4fe39a}.healthScore.warning b{color:#e8bd55}.healthScore.danger b{color:#ff5261}
+.healthFacts{display:grid!important;grid-template-columns:1fr 1fr;gap:1px}.healthFacts div{background:#08161a;padding:10px}.healthFacts strong{display:block;color:#edf8fa;font-size:18px;margin-top:5px}
+.healthSignals ul{margin:12px 0 0;padding-left:18px;color:#a4b7bc;font-size:11px;line-height:1.7;max-height:88px;overflow:auto}
+.healthRecommendation p{color:#a4b7bc;line-height:1.7;font-size:11px;margin:14px 0 0}.healthRecommendation{border-left:1px solid #183b42}
+.sensor-ready{color:#16d7e5!important}.sensor-live{color:#4fe39a!important}.sensor-sim{color:#e8bd55!important}
+@media(max-width:1050px){.healthGrid{grid-template-columns:1fr 1fr}.healthRecommendation{border-left:0}}
+@media(max-width:700px){.healthGrid{grid-template-columns:1fr}.healthFacts{grid-template-columns:1fr 1fr}.healthRecommendation{border-left:0}}
+
+.topStatus .health-safe{color:#4fe39a}.topStatus .health-warning{color:#e8bd55}.topStatus .health-danger{color:#ff5261}

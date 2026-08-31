@@ -1,0 +1,13 @@
+HydroLevel V5 Vehicle Profile / Report Fix
+
+Changes made:
+1. Moved Vehicle Details out of the left sidebar into a dedicated VEHICLE PROFILE tab.
+2. Added required-field validation for the vehicle profile.
+3. START MONITORING is disabled until all required vehicle fields are filled and saved.
+4. Backend /api/start also blocks monitoring, so the rule cannot be bypassed from the browser.
+5. Saved vehicle details are loaded from data/vehicle_details.json.
+6. PDF, Excel, CSV and JSON exports now use ACTIVE_VEHICLE_DETAILS (the saved profile), not the default config values.
+7. Vehicle profile shows PROFILE COMPLETE / PROFILE INCOMPLETE status and missing fields.
+
+Required fields:
+Vehicle ID, Make / Model, Registration, Chassis No., Test Date, Test Location, GVW, Front Axle Rating, Rear Axle Rating, Payload, Wheelbase, Tyre Size, Operator.

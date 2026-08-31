@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HydroLevel Platform</title>
+<link rel="stylesheet" href="/css/dashboard.css?v=20260821-v5-login-eq">
+</head>
+<body>
+<div id="boot">
+  <div class="bootLogo"><img src="/assets/hydrolevel-logo.png"><b>HYDROLEVEL</b></div>
+  <div class="bootLine"><i></i></div>
+  <p>INITIALIZING VEHICLE INTELLIGENCE</p>
+  <div class="bootFallback">LOCAL ENGINE · READY</div>
+</div>
+
+<header class="top">
+  <a class="brand" href="/"><img src="/assets/hydrolevel-logo.png"><span>HYDROLEVEL<small>VEHICLE LOAD INTELLIGENCE</small></span></a>
+  <div class="topStatus"><span id="userGreeting" class="userGreeting">HI USER</span><span id="mode">IDLE</span><span id="health">● SYSTEM READY</span></div>
+  <button id="logout" class="return logoutBtn">LOGOUT ↪</button>
+</header>
+
+<div class="shell">
+<aside>
+  <button class="navBtn active" data-tab="monitor">MONITORING</button>
+  <button class="navBtn vehicleNav" data-tab="vehicle">VEHICLE PROFILE</button>
+  <button class="navBtn" data-tab="analytics">ANALYTICS</button>
+  <button class="navBtn" data-tab="hydroai">HYDROAI</button>
+  <button class="navBtn" data-tab="reports">REPORTS</button>
+
+  <div class="sideBlock">
+    <b>DATASET</b>
+    <button id="sample" class="smallBtn">LOAD 500-ROW DEMO</button>
+    <label class="fileBtn">IMPORT CSV / XLSX / XLS<input id="file" type="file" accept=".csv,.xlsx,.xls"></label>
+    <span id="fileStatus">No dataset loaded</span>
+  </div>
+
+  <div class="sideBlock">
+    <b>ANALYSIS</b>
+    <label>Threshold <input id="threshold" type="number" value="10" step="0.5"> kg</label>
+    <label>Equalization <select id="blend"><option value="0.5">50% blend</option><option value="0.8">80% blend</option></select></label>
+    <button id="import" class="smallBtn">VALIDATE DATA</button>
+    <button id="start" class="startBtn">START MONITORING</button>
+  </div>
+</aside>
+
+<main>
+  <div id="errorBanner"></div>
+  <div class="pageHead">
+    <div><div class="eyebrow">LIVE VEHICLE INTELLIGENCE</div><h1 id="pageTitle">MONITORING</h1></div>
+    <div class="rowBox">ROW <b id="row">0 / 0</b><div class="bar"><i id="progress"></i></div></div>
+  </div>
+
+  <section id="tab-vehicle" class="tab vehicleProfileTab">
+    <div class="profileHeader">
+      <div>
+        <div class="eyebrow">TEST / VEHICLE CONFIGURATION</div>
+        <h2>VEHICLE PROFILE</h2>
+        <p>Complete and save the vehicle information before monitoring can begin. This profile is also attached to every new engineering report.</p>
+      </div>
+      <div id="vehicleCompletion" class="profileBadge incomplete">PROFILE INCOMPLETE</div>
+    </div>
+    <div class="vehicleFormGrid">
+      <label>Vehicle ID <input id="vehicle_id" type="text"></label>
+      <label>Make / Model <input id="make_model" type="text"></label>
+      <label>Registration <input id="registration_number" type="text"></label>
+      <label>Chassis No. <input id="chassis_number" type="text"></label>
+      <label>Test Date <input id="test_date" type="text" placeholder="DD-MM-YYYY"></label>
+      <label>Test Location <input id="test_location" type="text"></label>
+      <label>GVW [kg] <input id="gvw_kg" type="text"></label>
+      <label>Front Axle Rating [kg] <input id="front_axle_rating_kg" type="text"></label>
+      <label>Rear Axle Rating [kg] <input id="rear_axle_rating_kg" type="text"></label>
+      <label>Payload [kg] <input id="payload_kg" type="text"></label>
+      <label>Wheelbase [mm] <input id="wheelbase_mm" type="text"></label>
+      <label>Tyre Size <input id="tyre_size" type="text"></label>
+      <label>Operator <input id="operator" type="text"></label>
+    </div>
+    <div class="profileActions">
+      <button id="saveVehicle" class="smallBtn profileSave">SAVE VEHICLE PROFILE</button>
+      <span id="vehicleStatus">No vehicle profile saved for this session.</span>
+      <button id="goMonitoring" class="smallBtn profileContinue">CONTINUE TO MONITORING →</button>
+    </div>
+    <div id="vehicleMissing" class="vehicleMissing">Complete all fields above, then save the profile.</div>
+  </section>
+
+  <section id="tab-monitor" class="tab active">
+    <div class="statusBar safe"><b id="status">WAITING</b><span id="statusMessage">Import a dataset and start monitoring.</span></div>
+
+    <div class="dashboardGrid">
+      <div class="twinPanel">
+        <div class="panelTitle">DIGITAL TWIN · LOAD MAP <span>FL · FR · RL · RR · CG</span></div>
+        <div class="loadMap twinStage">
+          <div class="twinHud">
+            <span class="twinChip"><i></i> LIVE DIGITAL STATE</span>
+            <span id="twinSource" class="twinChip muted">HYDROLEVEL PLAYBACK</span>
+          </div>
+
+          <div id="twinCanvas" class="twinCanvas" aria-label="HydroLevel three dimensional digital twin"></div>
+          <div class="twinScanline"></div>
+
+          <div class="wheelBox fl" id="wFL"><span class="position">FL</span><strong class="rawValue">—</strong><small>RAW LOAD</small><strong class="eqValue">EQ —</strong><em class="wheelState">WAITING</em></div>
+          <div class="wheelBox fr" id="wFR"><span class="position">FR</span><strong class="rawValue">—</strong><small>RAW LOAD</small><strong class="eqValue">EQ —</strong><em class="wheelState">WAITING</em></div>
+          <div class="wheelBox rl" id="wRL"><span class="position">RL</span><strong class="rawValue">—</strong><small>RAW LOAD</small><strong class="eqValue">EQ —</strong><em class="wheelState">WAITING</em></div>
+          <div class="wheelBox rr" id="wRR"><span class="position">RR</span><strong class="rawValue">—</strong><small>RAW LOAD</small><strong class="eqValue">EQ —</strong><em class="wheelState">WAITING</em></div>
+
+          <div id="cg" class="cgMarker"><span>CG</span></div>
+          <div class="cgReadout">
+            <b>CENTRE OF GRAVITY</b>
+            <span id="cgPosition">X 0.000 · Y 0.000</span>
+            <small id="cgDirection">BALANCED</small>
+          </div>
+          <div class="twinEqStrip" id="twinEqStrip">
+            <span>EQUALIZED LOAD</span>
+            <b>FL <i id="twinEqFL">—</i></b>
+            <b>FR <i id="twinEqFR">—</i></b>
+            <b>RL <i id="twinEqRL">—</i></b>
+            <b>RR <i id="twinEqRR">—</i></b>
+          </div>
+
+          <div class="twinViews" role="group" aria-label="Digital twin camera view">
+            <button class="twinView active" data-view="top">TOP</button>
+            <button class="twinView" data-view="front">FRONT</button>
+            <button class="twinView" data-view="side">SIDE</button>
+            <button class="twinView" data-view="iso">3D</button>
+          </div>
+          <div class="twinLegend"><span><i class="legend-cyan"></i> SENSOR NODE</span><span><i class="legend-green"></i> EQUALIZED</span><span><i class="legend-red"></i> ALERT</span></div>
+        </div>
+      </div>
+
+      <div class="analysisPanel">
+        <div class="panelTitle">LIVE ENGINEERING VALUES</div>
+        <div class="valueGrid">
+          <div>FL<strong id="mFL">—</strong></div><div>FR<strong id="mFR">—</strong></div>
+          <div>RL<strong id="mRL">—</strong></div><div>RR<strong id="mRR">—</strong></div>
+          <div>TOTAL<strong id="total">—</strong></div><div>AVG / REF<strong id="avg">—</strong></div>
+          <div>FRONT AXLE<strong id="front">—</strong></div><div>REAR AXLE<strong id="rear">—</strong></div>
+          <div>LEFT SIDE<strong id="left">—</strong></div><div>RIGHT SIDE<strong id="right">—</strong></div>
+        </div>
+        <div class="panelTitle equalTitle">EQUALIZED VALUES <span id="eqStatus">WAITING</span></div>
+        <div class="eqGrid">
+          <div>FL<strong id="eqFL">—</strong></div><div>FR<strong id="eqFR">—</strong></div>
+          <div>RL<strong id="eqRL">—</strong></div><div>RR<strong id="eqRR">—</strong></div>
+        </div>
+        <div class="panelTitle">ANALYSIS PIPELINE <span id="phase">WAITING</span></div>
+        <div class="stages"><span>READ</span><span>VALIDATE</span><span>CALCULATE</span><span>SCREEN</span><span>EQUALIZE</span><span>CG</span><span>HYDROAI</span></div>
+        <div id="console" class="console"><p>HydroLevel analysis console ready.</p></div>
+      </div>
+    </div>
+
+    <div class="healthPanel">
+      <div class="panelTitle">VEHICLE HEALTH INTELLIGENCE <span id="sensorStatus">SENSOR INTERFACE READY</span></div>
+      <div class="healthGrid">
+        <div class="healthScore">
+          <span>HEALTH RISK SCORE</span>
+          <strong id="healthScore">0</strong><small>/ 100</small>
+          <b id="healthLevel">SAFE</b>
+        </div>
+        <div class="healthFacts">
+          <div><span>HISTORICAL ROWS</span><strong id="healthRows">0</strong></div>
+          <div><span>ALERT RATE</span><strong id="healthAlertRate">0.0%</strong></div>
+          <div><span>DEVIATION TREND</span><strong id="healthTrend">STABLE</strong></div>
+        </div>
+        <div class="healthSignals">
+          <span>HEALTH INDICATORS</span>
+          <ul id="healthFlags"><li>Import historical vehicle data to begin health screening.</li></ul>
+        </div>
+        <div class="healthRecommendation">
+          <span>EARLY-WARNING RECOMMENDATION</span>
+          <p id="healthRecommendation">No validated history available.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottomGrid">
+      <div class="aiCard"><div class="panelTitle">HYDROAI <span id="aiTitle">ENGINEERING INSIGHT</span></div><p id="aiInsight">Import a dataset to generate data-grounded engineering insights.</p></div>
+      <div class="aiCard"><div class="panelTitle">EQUALIZATION METHOD</div><p>Raw FL/FR/RL/RR values are preserved. Equalized values are calculated toward the arithmetic reference using the selected blend and are shown live above.</p></div>
+    </div>
+  </section>
+
+  <section id="tab-analytics" class="tab">
+    <div class="analyticsNote"><b>LIVE GRAPH DATA</b><span id="graphRowInfo">Rows plotted: 0</span><small>Graphs use only completed rows. Before monitoring starts, no analysis rows are plotted.</small></div>
+    <div class="chartGrid">
+      <div class="chartCard"><h3>01 · Four-Wheel Load Trend</h3><canvas id="gTrend"></canvas></div>
+      <div class="chartCard"><h3>02 · Force vs Time [N]</h3><canvas id="gForce"></canvas></div>
+      <div class="chartCard"><h3>03 · Total Vehicle Load</h3><canvas id="gTotal"></canvas></div>
+      <div class="chartCard"><h3>04 · Front vs Rear Axle</h3><canvas id="gAxle"></canvas></div>
+      <div class="chartCard"><h3>05 · Left vs Right Distribution</h3><canvas id="gSide"></canvas></div>
+      <div class="chartCard"><h3>06 · Deviation vs ±10 kg</h3><canvas id="gDev"></canvas></div>
+      <div class="chartCard"><h3>07 · Event Frequency by Wheel</h3><canvas id="gEvents"></canvas></div>
+      <div class="chartCard"><h3>08 · Equalization Adjustment</h3><canvas id="gEq"></canvas></div>
+      <div class="chartCard"><h3>09 · Distribution Percentages</h3><canvas id="gDist"></canvas></div>
+      <div class="chartCard"><h3>10 · Post-Equalization Status</h3><canvas id="gStatus"></canvas></div>
+      <div class="chartCard"><h3>11 · Health-Risk Timeline</h3><canvas id="gHealth"></canvas></div>
+      <div class="chartCard"><h3>12 · Equalized Four-Wheel Trend</h3><canvas id="gEqTrend"></canvas></div>
+      <div class="chartCard wide"><h3>13 · 3D Time × Node × Load</h3><div id="g3d"></div></div>
+    </div>
+  </section>
+
+  <section id="tab-hydroai" class="tab"><div class="aiLarge"><div class="eyebrow">HYDROAI</div><h2>Ask about the current engineering state.</h2><div class="question"><input id="question" placeholder="Which wheel is overloaded? Why is the status warning?"><button id="ask">ASK HYDROAI</button></div><div id="answer">No question asked.</div></div></section>
+
+  <section id="tab-reports" class="tab">
+    <div class="reportGate">
+      <div class="eyebrow">ENGINEERING REPORT EXPORT</div>
+      <h2 id="gateTitle">REPORT BLOCKED</h2>
+      <p id="gateText">Start monitoring. The report is locked until 20 completed rows exist.</p>
+      <div class="reportCounter"><span>VALIDATED</span><strong id="reportValidated">0</strong><span>COMPLETED</span><strong id="reportCompleted">0</strong><span>REPORT ROWS</span><strong id="reportRows">0</strong></div>
+      <div class="exports"><button data-export="pdf">EXPORT PDF</button><button data-export="xlsx">EXPORT EXCEL</button><button data-export="csv">EXPORT CSV</button><button data-export="json">EXPORT JSON</button></div>
+    </div>
+    <div class="insuranceCard" id="insuranceReview">
+      <div class="panelTitle">INSURANCE REVIEW SUPPORT <span id="insuranceStatus">WAITING</span></div>
+      <div class="insuranceGrid">
+        <div><span>DATASET</span><strong id="insRows">0</strong><small>valid rows</small></div>
+        <div><span>POST-ALERT RATE</span><strong id="insRate">0.0%</strong><small>all completed rows</small></div>
+        <div><span>ENGINEERING SCREEN</span><strong id="insScreen">WAITING</strong><small>configured threshold only</small></div>
+        <div><span>ENGINEERING INSURANCE OUTCOME</span><strong id="insPayout">SCREENING ONLY</strong><small>HydroLevel does not determine monetary payout</small></div>
+      </div>
+      <p id="insNote">HydroLevel analyzes the full completed dataset and provides engineering evidence for insurance claim assessment. A SAFE result means no configured load anomaly was detected; coverage and monetary payout remain an insurer decision.</p>
+    </div>
+    <div class="reportNotes"><h3>Exact completed-row rule</h3><p>The report does not use the validated/source count. If 500 rows are imported but playback has completed only 23 rows, every exported report contains exactly 23 rows. With 19 or fewer completed rows, every export button stays locked and the backend also rejects the export.</p><p>The PDF graph package is generated from those same completed rows, so charts and row tables cannot silently include the unfinished dataset.</p></div>
+  </section>
+</main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="/js/config.js?v=20260821-twin1"></script>
+<script src="/js/digital-twin.js?v=20260821-v5-login-eq"></script>
+<script src="/js/dashboard.js?v=20260821-v5-login-eq"></script>
+</body>
+</html>

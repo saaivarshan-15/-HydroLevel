@@ -1,0 +1,43 @@
+HYDROLEVEL FINAL FIXES — 20 AUG 2026
+
+1. ROW PLAYBACK FIX
+   The previous version started the next row before the previous row reached
+   its completion timer. That reset currentRowIndex and caused COMPLETED to
+   remain at 0. Playback is now sequential: READ -> VALIDATE -> CALCULATE ->
+   SCREEN -> EQUALIZE -> DISPLAY EQ/CG -> COMPLETE -> next row.
+
+2. GRAPH FIX
+   Graphs use rows.slice(0, completedCount). The Analytics tab redraws after
+   it becomes visible, so completed rows are plotted after playback starts.
+
+3. EQUALIZATION DISPLAY
+   Raw abnormal wheels show red during screening. During equalization they
+   pulse. After equalization, the EQ value is displayed in the wheel box and
+   in the Live Engineering Values / Equalized Values panels. Safe EQ values
+   turn green; values still outside the configured threshold remain red.
+
+4. REPORT GATE
+   Validated/imported rows and completed rows are separate counters.
+   0–19 completed rows: report blocked.
+   20+ completed rows: report enabled.
+   Export contains exactly the completed rows, never all imported rows.
+
+5. EXCEL IMPORT
+   CSV/XLSX/XLS supported. Excel sheets are searched across multiple header
+   rows and across sheets for FL, FR, RL and RR. XLS support requires xlrd,
+   included in requirements.txt.
+
+6. DIGITAL TWIN
+   Dashboard Digital Twin contains only FL, FR, RL, RR load boxes and a CG
+   marker. No vehicle/truck image is used in the dashboard.
+
+7. EDITABLE STRUCTURE
+   Frontend defaults: frontend/js/config.js
+   Dashboard logic: frontend/js/dashboard.js
+   Dashboard design: frontend/css/dashboard.css
+   Engineering calculations: backend/services/analysis.py
+   Excel/API: backend/app.py
+   Reports: backend/reports/reporting.py
+
+SERVER
+   http://127.0.0.1:5050
