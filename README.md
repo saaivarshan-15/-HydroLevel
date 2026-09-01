@@ -1,108 +1,164 @@
-# HydroLevel — AI-Powered Vehicle Load Intelligence & Digital Twin
+# HydroLevel
+## AI-Powered Public Transport Vehicle Breakdown Prediction & Load Intelligence Platform
 
-**Team Volts and Bolts** | Prasunethon 2.0 — Round 2 Submission
-**Version:** V7.0 (Vehicle Health Intelligence + Sensor-Ready Telemetry)
+**Team Volts and Bolts** | **Omnikon National Hackathon 2026**  
+**Version:** V7.0 — Vehicle Health Intelligence + Sensor-Ready Telemetry
 
-> "Don't just measure the load. Understand what the load is doing to the vehicle."
+> **"Don't just detect vehicle overload. Predict the conditions that may lead to vehicle failure."**
 
 ---
 
-## 1. Problem
+# 🚀 One-Line Pitch
 
-A vehicle can stay within its total permissible load while that load is distributed
-unevenly across the four wheel positions (FL / FR / RL / RR) — hiding a risk that a
-single total-weight reading can never reveal. HydroLevel makes that hidden
-distribution visible, understandable, and actionable.
+HydroLevel is an intelligent vehicle-health platform designed to support **public transport vehicle breakdown prediction** by analysing four-wheel load distribution, detecting persistent abnormal loading, tracking centre-of-gravity movement, identifying vehicle-health risk patterns, and generating explainable engineering reports.
 
-## 2. What HydroLevel Does
+---
 
-- **Monitors** four-point vehicle load data through the current Excel/CSV playback pipeline and a sensor-ready JSON telemetry interface for future ESP32/HX711 connection.
-- **Analyses** total, average, deviation, and equalized reference values per wheel.
-- **Visualizes** the vehicle as a Digital Twin (FL/FR/RL/RR + centre of gravity),
-  with CG shifting live toward the higher-load side.
-- **Detects** abnormal loading per wheel position independently using the configurable ±10 kg project screening threshold.
-- **Screens vehicle health** from historical rows using repeated overloads, persistence and deviation trends to produce an explainable 0–100 early-risk indicator (rule-based, not a trained ML failure probability).
-- **Interprets** results in plain language via HydroAI ("Which side is overloaded?").
-- **Reports** a structured engineering export (PDF / Excel / CSV / JSON), gated at a
-  minimum of 20 completed rows to keep exports statistically meaningful, including vehicle-health screening metrics.
+# 🔗 Project Links
 
-## 3. Tech Stack
+## 🌐 Live Deployment
 
-| Layer | Technology |
-|---|---|
-| Frontend | HTML5, CSS3, JavaScript |
-| Backend | Python 3, Flask, Flask-CORS |
-| Data | pandas, openpyxl, xlrd (CSV/XLSX/XLS import) |
-| Reporting | ReportLab (PDF), matplotlib (graphs) |
-| Hardware interface | ESP32/HX711 JSON telemetry contract ready; physical load cells/IMU/GPS/OBD-CAN integration is next phase |
+**[Launch HydroLevel](YOUR_RENDER_URL)**
 
-## 4. Project Status — What's Actually Built vs. Planned
+## 💻 GitHub Repository
 
-| Component | Status |
-|---|---|
-| Dashboard, Digital Twin, CG tracking | ✅ Working |
-| Excel/CSV import + row playback | ✅ Working |
-| Equalization + engineering analysis | ✅ Working |
-| Report export (PDF/Excel/CSV/JSON), 20-row gate | ✅ Working |
-| HydroAI + vehicle-health risk screening | ✅ Working (transparent rule-based early-warning engine; not a trained ML failure model) |
-| Login / session handling | ✅ Working (local prototype auth) |
-| Insurance Review Support panel | ✅ Working — engineering evidence only; does **not** approve/deny claims |
-| ESP32/HX711 telemetry interface | ✅ API contract ready; 🔜 physical sensor connection / calibration |
-| IMU / GPS / OBD-CAN | 🔜 Phase 4 |
-| Field validation with known loads | 🔜 Phase 5 |
+**[View Source Code](YOUR_GITHUB_URL)**
 
-## 5. Running Locally
+## 🎥 Demonstration Video
 
-```bash
-pip install -r requirements.txt
-python backend/app.py
-```
+**[Watch Project Demo](https://drive.google.com/file/d/1TIMJykE_KHIFoFODNDaPn4i5jS6boXvD/view?usp=sharing)**
 
-Then open **http://127.0.0.1:5050**.
+---
 
-**Import formats accepted:** `.csv`, `.xlsx`, `.xls` — with columns such as
-`FL`, `FR`, `RL`, `RR` (or `FL (kg)` etc.).
+# 1. Problem Statement
 
-**Report rule:** fewer than 20 completed rows blocks export; at 20+, the
-report contains exactly that many completed rows (never in-progress rows).
+## Predicting Public Transport Vehicle Breakdowns
 
-## 6. Repository Structure
+Public transport vehicles such as buses operate for long hours under continuously changing passenger and cargo loads.
 
-```
-backend/
-  app.py                  API server, import handling, session/auth
-  config.py               Server + vehicle metadata defaults
-  services/analysis.py    Load equalization, CG, deviation calculations
-  services/digital_twin.py Digital Twin state model
-  services/hydroai.py     Rule-based insight/answer engine
-  reports/reporting.py    PDF/Excel/CSV report + chart generation
-frontend/
-  index.html, login.html, dashboard.html
-  css/, js/
-data/sample/              500-row demo dataset
-docs/                     Flow diagrams, Digital Twin, hardware integration contract, graph spec, sample report preview
-```
+A vehicle may experience:
 
-## 7. Security & Scalability Notes
+- Uneven passenger distribution
+- Repeated wheel overloading
+- Excessive load on one side
+- Persistent load imbalance
+- Centre-of-gravity shifts
+- Abnormal load patterns over time
 
-- Current auth is a local-prototype session login — suitable for a single
-  demo/pilot deployment, not yet multi-tenant.
-- Server holds shared in-memory state (`STATE` dict) per process, so all
-  browser tabs agree on row counts; a database layer is the natural next
-  step for multi-vehicle / multi-user scale.
-- Recommended before production use: per-vehicle data isolation, a real
-  secret-key management strategy (currently a placeholder in `config.py`),
-  and input validation hardening on the importer.
+These conditions can contribute to increased stress on vehicle components and may become early indicators of potential vehicle-health problems.
 
-## 8. Roadmap
+Traditional vehicle monitoring systems often focus on individual measurements such as total vehicle weight or basic fault detection.
 
-**Done:** Dashboard, 4-point data model, Excel import, load analysis, Digital
-Twin, engineering report.
-**In progress:** HydroAI health intelligence, historical trend analysis and event/risk scoring.
-**Next:** Physical hardware connection/calibration (Phase 3), real-time vehicle telemetry (Phase 4), field validation (Phase 5), fleet-scale platform (Phase 6, vision).
+However, **total vehicle weight alone cannot explain how the load is distributed across the vehicle or whether abnormal patterns are repeatedly occurring.**
 
-## 9. Demo
+For example, two buses can have the same total weight while having completely different load distributions across their four wheel positions.
 
-A recorded walkthrough (import → playback → equalization → Digital Twin CG →
-HydroAI → report export) is included as `demo_video` alongside this
-submission. Sample dataset: `data/sample/hydrolevel_demo_500.csv`.
+Therefore, there is a need for an intelligent system that can analyse vehicle-load behaviour over time and identify **early warning patterns associated with potential vehicle breakdown risk.**
+
+---
+
+# 2. Proposed Solution
+
+HydroLevel addresses the problem of **public transport vehicle breakdown prediction** through continuous vehicle-load intelligence and historical health screening.
+
+The platform analyses load information from four wheel positions:
+
+- Front Left (FL)
+- Front Right (FR)
+- Rear Left (RL)
+- Rear Right (RR)
+
+The system converts raw vehicle-load data into engineering information such as:
+
+- Total vehicle load
+- Individual wheel loads
+- Average wheel load
+- Load deviation
+- Equalized reference load
+- Wheel-level abnormal-load detection
+- Centre-of-gravity movement
+- Historical load behaviour
+- Persistent overload detection
+- Vehicle-health risk screening
+- Explainable HydroAI insights
+- Engineering reports
+
+The current prototype supports **CSV, XLSX and XLS data playback**, together with a **sensor-ready JSON telemetry interface** designed for future ESP32/HX711 load-cell integration.
+
+---
+
+# 3. How HydroLevel Helps Predict Breakdowns
+
+HydroLevel follows a multi-stage approach.
+
+Instead of attempting to predict a breakdown from a single load measurement, the platform looks for **repeated and persistent abnormal patterns** in historical vehicle data.
+
+The system considers factors such as:
+
+1. Repeated wheel overload
+2. Persistent load imbalance
+3. Wheel-to-wheel deviation
+4. Load distribution trends
+5. Centre-of-gravity movement
+6. Historical abnormal events
+
+These factors are combined into an **explainable 0–100 vehicle-health early-risk indicator**.
+
+The objective is to provide an early warning that allows fleet operators and maintenance teams to investigate a vehicle before a serious failure occurs.
+
+> **Important:** The current V7.0 prototype uses a transparent rule-based early-warning engine. It is not claiming to be a trained machine-learning failure-probability model.
+
+This makes the current system explainable and provides a foundation for future machine-learning-based predictive maintenance.
+
+---
+
+# 4. System Workflow
+
+```text
+              PUBLIC TRANSPORT VEHICLE
+                       │
+                       ▼
+             Vehicle Load Information
+                       │
+                       ▼
+          CSV / Excel / JSON Telemetry
+                       │
+                       ▼
+             Data Validation
+                       │
+                       ▼
+             Four-Wheel Analysis
+                       │
+          ┌────────────┼────────────┐
+          ▼            ▼            ▼
+       FL/FR/RL/RR   Deviation   Total Load
+          │            │            │
+          └────────────┼────────────┘
+                       ▼
+             Abnormal Load Detection
+                       │
+                       ▼
+             Centre-of-Gravity Analysis
+                       │
+                       ▼
+              Historical Trend Analysis
+                       │
+                       ▼
+           Persistent Abnormal Patterns
+                       │
+                       ▼
+          Vehicle Health Risk Screening
+                       │
+                       ▼
+                  HydroAI
+                       │
+                       ▼
+          Explainable Early-Warning
+                       │
+                       ▼
+            Engineering Reports
+          PDF / Excel / CSV / JSON
+                       │
+                       ▼
+        MAINTENANCE INVESTIGATION /
+              EARLY INTERVENTION
